@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>Heart Home</title>
   </head>
   <body>
     <div>
@@ -24,7 +24,7 @@
       Roboto;
   }
   body {
-    @apply grid place-content-center p-20;
+    @apply grid place-content-center;
     margin: 0;
     color: #eee;
     background-color: #13151a;
@@ -33,5 +33,57 @@
   }
   body > div {
     @apply container;
+  }
+  .card {
+    width: 200px;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+  }
+  .card .image-box {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+  .card .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 90%;
+    border-radius: inherit;
+    transition: 0.5s ease-in-out;
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid white;
+    border-radius: inherit;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+  }
+  .card:hover img {
+    filter: grayscale(1) brightness(0.4);
+  }
+  .card:hover .content {
+    visibility: visible;
+    opacity: 1;
+  }
+  .card:hover::after {
+    opacity: 1;
+    inset: 20px;
+  }
+  .content {
+    padding: 10px;
+    visibility: hidden;
+    opacity: 0;
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition:
+      visibility 0s,
+      opacity 0.5s linear;
   }
 </style>

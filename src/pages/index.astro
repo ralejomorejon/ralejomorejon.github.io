@@ -1,15 +1,56 @@
 ---
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const cards = await getCollection("cards");
+console.log(cards);
+
+cards[0].slug;
 ---
 
-<Layout title="Home">
+<Layout title="Heart Home">
   <main>
     <h1 class="text-center text-5xl font-extrabold">
       Romance <span class="block ml-7">House❤️</span>
+      <p></p>
     </h1>
+
+    <section aria-label="all the romantic cards from us">
+      <div class="">
+        <div class="">
+          {
+            cards.map((card) => {
+              const { slug, data } = card;
+              let { title, description, img, date } = data;
+              title = title.charAt(0).toUpperCase() + title.slice(1);
+              title = title.replace(/-/g, " ");
+              return (
+                <article class="card m-4 flex-col rounded-lg shadow-lg overflow-hidden">
+                  <div class="image-box">
+                    <img src={`/img/${img}`} alt={title} class=" rounded-lg" />
+                  </div>
+                  <div class="content">
+                    <h3 class="underline decoration-red-400 text-2xl font-bold leading-light">
+                      {title}
+                    </h3>
+                    <span>{date}</span>
+                    <p>{description}</p>
+                  </div>
+                </article>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>
+
+<script>
+  const containers = document.querySelectorAll(".card");
+  containers.forEach((container) => {
+    container.addEventListener("click", () => {
+      container.classList.toggle("active");
+    });
+  });
+</script>
