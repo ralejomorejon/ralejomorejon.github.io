@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
-
 const cards = await getCollection("cards");
 console.log(cards);
 
@@ -9,12 +8,28 @@ cards[0].slug;
 ---
 
 <Layout title="Heart Home">
-  <main>
-    <h1 class="text-center text-5xl font-extrabold">
-      Romance <span class="block ml-7">House❤️</span>
-      <p></p>
+  <header>
+    <h1 class="heading-1 text-center block text-5xl font-extrabold">
+      <p>Romance</p>
+      <span class="inline ml-7"
+        >House<img
+          id="heart"
+          class="heart inline"
+          src="/img/heart.png"
+          alt=""
+        />
+      </span>
     </h1>
-
+    <!-- modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close from-slate-500">&times;</span>
+        <p>Te amo cosa rica</p>
+      </div>
+    </div>
+    <!-- modal end -->
+  </header>
+  <main>
     <section aria-label="all the romantic cards from us">
       <div class="">
         <div class="">
@@ -25,9 +40,9 @@ cards[0].slug;
               title = title.charAt(0).toUpperCase() + title.slice(1);
               title = title.replace(/-/g, " ");
               return (
-                <article class="card m-4 flex-col rounded-lg shadow-lg overflow-hidden">
+                <div class="card m-4 flex-col rounded-lg shadow-lg overflow-hidden">
                   <div class="image-box">
-                    <img src={`${img}`} alt={title} class=" rounded-lg" />
+                    <img src={`${img}`} alt={title} class="rounded-lg" />
                   </div>
                   <div class="content">
                     <h3 class="underline decoration-red-400 text-2xl font-bold leading-light">
@@ -36,7 +51,7 @@ cards[0].slug;
                     <span>{date}</span>
                     <p>{description}</p>
                   </div>
-                </article>
+                </div>
               );
             })
           }
@@ -47,10 +62,62 @@ cards[0].slug;
 </Layout>
 
 <script>
+  type Element = {
+    element: null;
+  };
   const containers = document.querySelectorAll(".card");
   containers.forEach((container) => {
     container.addEventListener("click", () => {
       container.classList.toggle("active");
     });
+  });
+
+  //animating the heart image
+  document.addEventListener("scroll", () => {
+    //const fullHeading = document.querySelector(."")
+    const image = document.querySelector(".heart");
+    const heading = document.querySelector(".heading-1");
+    // Calculate rotation based on scroll position
+    const scrollTop = window.scrollY;
+    const rotation = scrollTop % 360; // Keeps rotation within 360 degrees
+
+    // Calculate scale based on scroll position
+    // Scale reduces to a minimum of 0.5 (50%) as you scroll down
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scale = 1 - (scrollTop / maxScroll) * 0.5;
+
+    // Apply rotation and scaling
+
+    image.style.transform = `rotate(${rotation}deg) scale(${Math.max(scale, 0.5)})`;
+    heading.style.transform = `scale(${Math.max(scale, 0.5)})`;
+  });
+  const heart: Element = document.querySelector(".heart");
+  const modal = document.getElementById("myModal");
+  heart.addEventListener("click", () => {
+    heart.classList.toggle("active");
+    heart.classList.toggle("big");
+    modal.classList.toggle("visible");
+  });
+
+  //modal
+  document.addEventListener("DOMContentLoaded", (event) => {
+    const modal = document.getElementById("myModal");
+    //const btn = document.getElementById("heart");
+    const span = document.getElementsByClassName("close")[0];
+
+    // heart.onclick = function () {
+    //   modal.style.opacity = 1;
+    // };
+
+    span.onclick = function () {
+      modal.classList.toggle("visible");
+      heart.classList.toggle("big");
+    };
+
+    // window.onclick = function (event) {
+    //   if (event.target == modal) {
+    //     modal.style.opacity = 0;
+    //   }
+    // };
   });
 </script>
