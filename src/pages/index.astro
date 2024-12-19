@@ -66,9 +66,13 @@ cards[0].slug;
     element: null;
   };
   const containers = document.querySelectorAll(".card");
+  const content = document.querySelectorAll(".content");
   containers.forEach((container) => {
     container.addEventListener("click", () => {
       container.classList.toggle("active");
+      content.forEach((content) => {
+        content.classList.toggle("active");
+      });
     });
   });
 
@@ -105,13 +109,11 @@ cards[0].slug;
     //const btn = document.getElementById("heart");
     const span = document.getElementsByClassName("close")[0];
 
-    // heart.onclick = function () {
-    //   modal.style.opacity = 1;
-    // };
-
     span.onclick = function () {
-      modal.classList.toggle("visible");
-      heart.classList.toggle("big");
+      if (modal.classList.contains("visible")) {
+        modal.classList.remove("visible");
+        heart.classList.remove("big");
+      }
     };
 
     // window.onclick = function (event) {
