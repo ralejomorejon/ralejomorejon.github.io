@@ -1,8 +1,8 @@
 ---
 title: hehe-ass
-description: This is the second card.
+description: Culo, sí.
 img: img/hehe-ass.webp
-date: "2020-01-01"
+date: "24 de agosto"
 buy:
   spain: https://example.com
   usa: https://example.com

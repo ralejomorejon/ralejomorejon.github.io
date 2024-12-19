@@ -34,11 +34,21 @@
   body > div {
     @apply container;
   }
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    position: sticky;
+    top: 0;
+    transition: all 0.3s;
+  }
   .card {
-    width: 200px;
+    width: 300px;
     border-radius: 8px;
     position: relative;
     cursor: pointer;
+    overflow: hidden;
   }
   .card .image-box {
     width: 100%;
@@ -85,5 +95,67 @@
     transition:
       visibility 0s,
       opacity 0.5s linear;
+  }
+  .heart {
+    position: sticky;
+    width: 3rem;
+    transition: scale 0.3s;
+  }
+  .heart:hover {
+    scale: 3;
+  }
+  .modal {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: block; /* Hidden by default */
+    opacity: 0;
+    margin: auto;
+    position: fixed; /* Stay in place */
+    justify-content: center;
+    left: 30vw;
+    padding: 20px;
+    z-index: 2000; /* Sit on top */
+    width: fit-content; /* Full width */
+    height: fit-content; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    border-radius: 10px;
+    background-color: #13151a; /* Fallback color */
+    transition: opacity 0.3s;
+  }
+  .visible {
+    opacity: 1;
+  }
+  .modal-content {
+    color: palevioletred;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%; /* Could be more or less, depending on screen size */
+    border-radius: inherit;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  @keyframes rotate360 {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .modal {
+      top: 50vh;
+    }
   }
 </style>
