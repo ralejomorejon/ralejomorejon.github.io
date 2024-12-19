@@ -38,7 +38,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 3000;
     position: sticky;
     top: 0;
     transition: all 0.3s;
@@ -98,7 +98,7 @@
   }
   .heart {
     position: sticky;
-    width: 3rem;
+    width: 4rem;
     transition: scale 0.3s;
   }
   .heart:hover {
@@ -111,9 +111,8 @@
     margin: auto;
     position: fixed; /* Stay in place */
     justify-content: center;
-    left: 30vw;
+    left: 200vw;
     padding: 20px;
-    z-index: 2000; /* Sit on top */
     width: fit-content; /* Full width */
     height: fit-content; /* Full height */
     overflow: hidden; /* Enable scroll if needed */
@@ -123,6 +122,8 @@
   }
   .visible {
     opacity: 1;
+    left: 30vw;
+    z-index: 4000;
   }
   .modal-content {
     color: palevioletred;
