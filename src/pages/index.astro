@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GameCard from "../components/GameCard.astro";
+import miImage from "../Images/bes.jpg";
+import Navigation from "../components/Navigation.astro";
+import { date } from "astro:schema";
+import { getPageInfo, getLatestPosts } from "../lib/wp";
+const pageTitle = "Index";
+
+const { title, content } = await getPageInfo("welcome-to-gamehub");
+const posts = await getLatestPosts({ perPage: 3 });
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+  </head>
+  <Layout title="GameHub - Your gaming news web">
+    <section class="bg-[#33333] text-center text-[#333333]">
+      <div class="container mx-auto px-4 py-12">
+        <div
+          class="font-bold heading-1 text-5xl mb-6 text-cyan-900"
+          set:html={title}
+        />
+        <div class="text-xl max-w-3xl mx-auto" set:html={content} />
+      </div>
+    </section>
+    <section>
+      <div class="container mx-auto px-4 py-12">
+        <h2 class="font-bold text-5xl mb-6">Latest articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {posts.map((post: any) => <GameCard {...post} />)}
+        </div>
+      </div>
+    </section>
+  </Layout>
+
+
+</html>

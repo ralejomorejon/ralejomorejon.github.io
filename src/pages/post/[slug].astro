@@ -1,0 +1,23 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GameCard from "../../components/GameCard.astro";
+import miImage from "../Images/bes.jpg";
+import Navigation from "../../components/Navigation.astro";
+import { date } from "astro:schema";
+import { getPostInfo } from "../../lib/wp";
+export const prerender = false;
+const pageTitle = "Index";
+
+const slug = Astro.params.slug;
+if (!slug) {
+  return Astro.redirect("/404");
+}
+const { title, content } = await getPostInfo(slug);
+---
+
+<Layout title={title}>
+  <article class="text-xl max-w-2xl mx-auto mt-12 prose">
+    <h1>{title}</h1>
+    <div set:html={content} />
+  </article>
+</Layout>
